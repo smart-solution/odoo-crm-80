@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_smart_portal_project_issue_smart_portal_project_issue,smart_portal_project_issue.smart_portal_project_issue,model_smart_portal_project_issue_smart_portal_project_issue,,1,0,0,0
