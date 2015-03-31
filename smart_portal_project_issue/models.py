@@ -8,6 +8,13 @@ class res_users(models.Model):
      portal_project_id = fields.Many2one('project.project','Default Project for Portal Issues')
      portal_customer_id = fields.Many2one('res.partner','Customer for Portal Issues',domain=[('is_company','=',True),('customer','=',True)])
 
+
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+
+    project_ids = fields.One2many('project.project', 'partner_id', 'Projects')
+
+
 class project_issue(models.Model):
     _inherit = 'project.issue'
 
