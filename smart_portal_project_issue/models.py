@@ -31,3 +31,13 @@ class project_issue(models.Model):
                 vals['project_id'] = user.portal_project_id and user.portal_project_id.id or False
         return super(project_issue, self).create(cr, uid, vals, context=context)
 
+
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
+                context=None, count=False):
+        if 'portal' in context:
+            user = self.pool.get('res.users').browse(cr, uid, uid)
+            project_ids = self.pool.get('project.project').search(cr, uid, [('partner_id','=',user.portal_customer_id.id)])
+            args.append(['project_id','in',project_ids])
+        return super(project_issue, self).search(cr, uid, args=args, offset=offset, limit=limit, order=order,
+            context=context, count=count)
+
