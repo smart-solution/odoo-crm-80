@@ -36,6 +36,8 @@ class project_issue(models.Model):
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
                 context=None, count=False):
+        if context is None:
+            context = {}
         if 'portal' in context:
             user = self.pool.get('res.users').browse(cr, uid, uid)
             project_ids = self.pool.get('project.project').search(cr, uid, [('partner_id','=',user.portal_customer_id.id)])
