@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="membership_partner_contact_form" model="ir.ui.view">
+            <field name='name'>membership.partner.contact.form</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name='arch' type='xml'>
+	            <field name="use_parent_address" position="replace"/>
+	            <label for="use_parent_address" position="replace"/>
+	            <field name="street" position="replace"/>	
+	            <field name="street2" position="replace"/>
+	            <div class="address_format" position="replace"/>
+	            <field name="country_id" position="replace"/>
+	            <label for="street" position="before">
+                    <field name="use_parent_address" class="oe_inline"
+                           on_change="onchange_address(use_parent_address, parent_id)"
+                           attrs="{'invisible': ['|', ('is_company', '=', True),('parent_id', '=', False)]}"/>
+	            	<field name="no_address"/>
+	            	<field name="country_id" string="Land" class="oe_no_button" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('use_parent_address','=',True)]}" required="True"/>
+	            	<field name="crab_used" attrs="{'invisible': ['|', ('use_parent_address', '=', True), ('country_id', '=', False)], 'invisible': True}"/>
+	                <field name="zip_id" attrs="{'invisible': [('crab_used', '=', False)], 'required': [('crab_used', '=', True)]}" domain="[('country_id', '=', country_id)]" context="{'search_view_ref':'partner_zip.view_country_city_search'}"/>
+	                <field name="street_id" attrs="{'invisible': ['|',('crab_used', '=', False),('postbus_nbr', '!=', False)], 'required': [('crab_used', '=', True),('postbus_nbr','=',False)]}" domain="[('city_id','=',zip_id)]"/>
+	                <field name="street_nbr" attrs="{'invisible': ['|',('crab_used', '=', False),('postbus_nbr', '!=', False)]}"/>
+	                <field name="street_bus" attrs="{'invisible': ['|',('crab_used', '=', False),('postbus_nbr', '!=', False)]}"/>
+	                <field name="postbus_nbr" attrs="{'invisible': ['|', ('no_address', '=', True), ('crab_used', '=', False)]}"/>
+  	            	<field name="street" attrs="{'invisible': ['|',('crab_used', '=', True),('no_address', '=', True)], 'readonly': [('use_parent_address','=',True)]}"/>
+  	            	<field name="street2" string="Huisnaam" attrs="{'invisible': ['|',('crab_used', '=', True),('no_address', '=', True)], 'readonly': [('use_parent_address','=',True)]}"/>
+	            	<field name="city" string="Stad" attrs="{'invisible': ['|',('crab_used', '=', True),('no_address', '=', True)], 'readonly': [('use_parent_address','=',True)]}"/>
+	            	<field name="state_id" string="Provintie" attrs="{'invisible': ['|',('crab_used', '=', True),('no_address', '=', True)], 'readonly': [('use_parent_address','=',True)]}"/>
+	            	<field name="zip" string="Postcode" attrs="{'invisible': ['|',('crab_used', '=', True),('no_address', '=', True)], 'readonly': [('use_parent_address','=',True)]}"/>
+	            </label>
+	            <label for="street" position="replace"/>
+           </field>
+        </record>
+
+    </data>
+</openerp>

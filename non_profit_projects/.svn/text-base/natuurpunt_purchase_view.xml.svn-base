@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="view_purchase_requisition_noproduct_form">
+        <field name="name">purchase.requisition.noproduct.form</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field name="model">purchase.requisition</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='product_id']" position="replace">
+		<field name="product_id" on_change="onchange_product_id(product_id,product_uom_id)" required="1"/>
+                <field name="name" required="1"/>
+                <field name="purchase_responsible_id"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='product_uom_id']" position="replace">
+                    <field name="product_uom_id"/>
+                    <field name="product_price_unit"/>
+                    <field name="state"/>
+            </xpath>
+	     <field name="warehouse_id" position="replace">
+		 <field name="warehouse_id" required="1"/>
+	    </field>
+	    <field name="purchase_ids" position="replace">
+		<field name="purchase_ids" invisible="True"/>
+		<separator string="Quotation Lines"/>
+		<field name="purchase_line_ids" nolabel="True" colspan="4">
+			<tree>
+				<field name="order_id"/>
+				<field name="product_id"/>
+				<field name="name"/>
+				<field name="partner_id"/>
+				<field name="product_qty"/>
+				<field name="price_unit"/>
+				<field name="date_planned"/>
+				<field name="price_subtotal"/>
+			</tree>
+		</field>
+	    </field>
+	     <separator string="Quotations" position="replace">
+	     </separator>
+        </field>
+    </record>
+
+        <record id="np_product_category_form_view" model="ir.ui.view">
+            <field name="name">product.category.np.form</field>
+            <field name="model">product.category</field>
+	    <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+		<field name="type" position="after">
+                    <field name="purchase_responsible_id"/>
+		    <newline/>
+		</field>
+            </field>
+        </record>
+
+        <record id="purchase_requisition_line_tree" model="ir.ui.view">
+            <field name="name">purchase.requisition.line.tree</field>
+            <field name="model">purchase.requisition.line</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Requisition Lines" editable="bottom">
+                    <field name="requisition_id" />
+                    <field name="product_id" />
+                    <field name="name" string="Description"/>
+                    <field name="purchase_responsible_id" />
+                    <field name="product_qty"/>
+                    <field name="product_price_unit"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_purchase_requisition_line_search" model="ir.ui.view">
+            <field name="name">purchase.requisition.line.search</field>
+            <field name="model">purchase.requisition.line</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+		<search>
+                    <field name="purchase_responsible_id" />
+                    <field name="state"/>
+                    <field name="name" />
+		    <filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]" help="Purchase Requisition lines which are in draft state"/>
+		    <filter icon="terp-check" name="done" string="Done" domain="[('state','=','done')]" help="Purchase Requisition lines which are in done state"/>
+                    <group expand="0" string="Group By...">
+                        <filter context="{'group_by':'requisition_id'}" string="Purchase Requisition"/>
+                        <filter context="{'group_by':'purchase_responsible_id'}" string="Purchase Responsible"/>
+		    </group>
+		</search>
+            </field>
+        </record>
+
+
+        <record id="np_purchase_requisition_line_action" model="ir.actions.act_window">
+            <field name="name">Purchase Requisition Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.requisition.line</field>
+	    <field name="domain">[]</field>
+            <field name="context">{'search_default_state': 'draft'}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <menuitem name="Purchase Requisition Lines" id="np_purchase_req_lines_menu" parent="purchase.menu_procurement_management" action="np_purchase_requisition_line_action" sequence="4"/>
+
+      <record id="view_purchase_requisition_Line_partner" model="ir.ui.view">
+            <field name="name">Request a Quotation</field>
+            <field name="model">purchase.requisition.line.partner</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Requisition" version="7.0">
+                    <group>
+                        <field name="partner_id" context="{'default_supplier': 1, 'default_customer': 0}"/>
+                    </group>
+                    <footer>
+                        <button name="create_order" string="Create Quotation" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Request a Quotation"
+            res_model="purchase.requisition.line.partner"
+            src_model="purchase.requisition.line"
+            view_mode="form"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_purchase_requisition_line_partner_wizard"/>
+
+    </data>
+</openerp>

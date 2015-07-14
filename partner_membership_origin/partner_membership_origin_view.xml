@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<record model="ir.ui.view" id="view_partner_form">
+		<field name="name">view.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="non_profit_partner.view_partner_form"/>
+		<field name="arch" type="xml">
+			<separator string="Aanbrenginfo" position="attributes">
+				<attribute name="invisible">False</attribute>
+			</separator>
+			<separator string="Aanbrenginfo" position="after">
+				<newline/>
+				<field name="membership_origin_id" on_change="onchange_membership_origin(membership_origin_id)"/>
+			    <field name="member_recruit_member" invisible="True"/>
+				<field name="recruiting_member_id" attrs="{'invisible': [('member_recruit_member','!=',True)]}"/>
+			</separator>
+		</field>
+	</record>
+
+    <record id="view_membership_origin_category_search" model="ir.ui.view">
+		<field name="name">view.membership.origin.category.search</field>
+		<field name="model">res.partner.membership.origin.category</field>
+		<field name="arch" type="xml">
+		    <search string="Membership Origin Category">
+				<group expand="0" string="Selection...">
+				    <field name="ref"/>
+				    <field name="name"/>
+				</group>
+		    </search>
+		</field>
+    </record>
+
+    <record id="view_membership_origin_category_tree" model="ir.ui.view">
+        <field name='name'>view.membership.origin.category.tree</field>
+        <field name='model'>res.partner.membership.origin.category</field>
+        <field name='arch' type='xml'>
+		    <tree string="Membership Origin Category">
+				<field name="ref"/>
+				<field name="name"/>
+	   	    </tree>
+		</field>
+    </record>
+
+    <record id="view_membership_origin_category_form" model="ir.ui.view">
+        <field name='name'>view.membership.origin.category.form</field>
+        <field name='model'>res.partner.membership.origin.category</field>
+        <field name='arch' type='xml'>
+	    <form string="Membership Origin Category">
+		<group colspan="4" col="2">
+		    <group>
+ 		        <field name="ref"/>
+		    </group>
+		    <group>
+		        <field name="name"/>
+		    </group>
+		</group>
+	    </form>
+	</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_membership_origin_category_form">
+        <field name="name">Membership Origin Category</field>
+        <field name="res_model">res.partner.membership.origin.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+		<field name="search_view_id" ref="view_membership_origin_category_search"/>
+    </record>
+
+    <menuitem name="Membership Origin Category" parent="base.menu_marketing_config_association" id="menu_membership_origin_category" sequence="21" action="action_membership_origin_category_form"/>
+
+    <record id="view_membership_origin_search" model="ir.ui.view">
+	<field name="name">view.membership.origin.search</field>
+	<field name="model">res.partner.membership.origin</field>
+	<field name="arch" type="xml">
+	    <search string="Membership Origin">
+		<group expand="0" string="Selection...">
+		    <field name="ref"/>
+		    <field name="name"/>
+		</group>
+	    </search>
+	</field>
+    </record>
+
+    <record id="view_membership_origin_tree" model="ir.ui.view">
+        <field name='name'>view.membership.origin.tree</field>
+        <field name='model'>res.partner.membership.origin</field>
+        <field name='arch' type='xml'>
+		    <tree string="Origin">
+				<field name="membership_origin_category_id"/>
+				<field name="ref"/>
+				<field name="name"/>
+				<field name="date_end"/>
+	   	    </tree>
+		</field>
+    </record>
+    
+    <record id="view_membership_origin_form" model="ir.ui.view">
+        <field name='name'>view.membership.origin.form</field>
+        <field name='model'>res.partner.membership.origin</field>
+        <field name='arch' type='xml'>
+		    <form string="Origin">
+				<group colspan="4" col="2">
+				    <group>
+		 		        <field name="ref"/>
+				        <field name="name"/>
+				    </group>
+				    <group>
+					<field name="membership_origin_category_id"/>
+				        <field name="date_end"/>
+					<field name="member_recruit_member"/>
+				    </group>
+				</group>
+		    </form>
+		</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_membership_origin_form">
+        <field name="name">Membership Origin</field>
+        <field name="res_model">res.partner.membership.origin</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+		<field name="search_view_id" ref="view_membership_origin_search"/>
+    </record>
+
+    <menuitem name="Membership Origin" parent="base.menu_marketing_config_association" id="menu_membership_origin" sequence="22" action="action_membership_origin_form"/>
+
+	</data>
+</openerp>

@@ -1,0 +1,1 @@
+import partner_areas_of_interest

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record id="view_address_state_tree" model="ir.ui.view">
+			<field name='name'>view.address.state.tree</field>
+			<field name='model'>res.partner.address.state</field>
+			<field name='arch' type='xml'>
+				<tree string="Address States">
+					<field name="name"/>
+					<field name="ref"/>
+					<field name="valid_address"/>
+				</tree>
+			</field>
+        </record>
+
+		<record id="view_address_state_form" model="ir.ui.view">
+			<field name='name'>view.address.state.form</field>
+			<field name='model'>res.partner.address.state</field>
+			<field name='arch' type='xml'>
+				<form string="Address State">
+					<group colspan="2" col="2">
+						<field name="name"/>
+						<field name="ref"/>
+						<field name="valid_address"/>
+					</group>
+				</form>
+			</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_address_state_form">
+			<field name="name">Address State</field>
+			<field name="res_model">res.partner.address.state</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+        </record>
+
+		<menuitem name="Address States" parent="base.menu_marketing_config_association" id="menu_address_state" sequence="15" action="action_address_state_form"/>
+
+		<record model="ir.ui.view" id="view_partner_form">
+			<field name="name">view.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="non_profit_partner.view_partner_form"/>
+			<field name="arch" type="xml">
+				<separator string="Addressinfo" position="attributes">
+					<attribute name="invisible">False</attribute>
+				</separator>
+				<separator string="Addressinfo" position="after">
+					<newline/>
+						<field name="address_state_id"/>
+				</separator>
+			</field>
+		</record>
+
+    </data>
+</openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="sequence_non_profit_projects_type" model="ir.sequence.type">
+            <field name="name">Projecten</field>
+            <field name="code">project.project</field>
+        </record>
+        
+        <record id="sequence_non_profit_projects" model="ir.sequence">
+            <field name="name">Projecten</field>
+            <field name="code">project.project</field>
+            <field name="prefix">PRJ/%(year)s</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+    </data>
+</openerp>

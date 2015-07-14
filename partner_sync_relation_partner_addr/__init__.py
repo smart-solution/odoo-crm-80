@@ -1,0 +1,1 @@
+from . import partner_sync_relation_partner_addr

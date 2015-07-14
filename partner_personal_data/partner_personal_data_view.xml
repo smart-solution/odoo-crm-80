@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="membership_partner_contact_form" model="ir.ui.view">
+            <field name='name'>membership.partner.contact.form</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name='arch' type='xml'>
+				<field name="ref" position="replace"/>
+				<field name="title" position="after">
+					<field name="id" readonly="True"/>
+					<field name="relation_partner_id"/>
+					<field name="relation_partner_set" invisible="True"/>
+					<field name="relation_address_set" invisible="True"/>
+					<field name="country_person_id" invisible="True"/>
+					<field name="gender"/>
+					<field name="birthday" widget="date"/>
+				    <field name="deceased"/>
+				    <field name="deceased_partner_id" attrs="{'invisible': [('deceased', '=', False)]}"/>
+				</field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

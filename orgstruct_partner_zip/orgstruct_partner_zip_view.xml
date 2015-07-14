@@ -1,0 +1,635 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <menuitem name="Organisatie" id="base.menu_organisation" sequence="15" groups="organisation_structure.group_organisation_structure_user"/>
+        <menuitem name="Partners" parent="base.menu_organisation" id="base.menu_organisation_organisation" sequence="10"/>
+        <menuitem name="Configuratie" parent="base.menu_organisation" id="base.menu_organisation_configuration" sequence="100" groups="organisation_structure.group_organisation_structure_manager"/>
+
+        <record id="view_organisation_type_tree" model="ir.ui.view">
+            <field name='name'>view.organisation.type.tree</field>
+            <field name='model'>res.organisation.type</field>
+            <field name='arch' type='xml'>
+		<tree string="Organisatietypes">
+			<field name="name"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_organisation_type_form" model="ir.ui.view">
+            <field name='name'>view.organisation.type.form</field>
+            <field name='model'>res.organisation.type</field>
+            <field name='arch' type='xml'>
+		<form string="Organisatietype">
+			<group colspan="2" col="2">
+				<field name="name"/>
+				<field name="analytic_account_required"/>
+				<field name="unique_type"/>
+				<field name="organisation"/>
+				<field name="remittance"/>
+				<field name="nature_area"/>
+			</group>
+			<group colspan="2" col="2">
+				<field name="display_functions_company"/>
+				<field name="display_functions_person"/>
+				<field name="display_remittance"/>
+				<field name="display_relations"/>
+				<field name="display_relations_vertical"/>
+				<field name="display_relations_horizontal"/>
+				<field name="display_radius_action"/>
+				<field name="display_niche"/>
+				<field name="display_reference"/>
+				<field name="display_npca"/>
+				<field name="display_regional_level"/>
+				<field name="display_nature_up"/>
+				<field name="display_partner_up"/>
+				<field name="display_regional_definition"/>
+				<field name="display_regional_definition_m2m"/>
+				<field name="display_analytic"/>
+				<field name="display_address"/>
+				<field name="display_regional_partnership"/>
+			</group>
+			<group colspan="4">
+				<separator string="Functietypes" colspan="4"/>
+				<field name="function_type_ids" nolabel="1">
+					<form string="Functietype">
+						<field name="name"/>
+					</form>
+				</field>
+			</group>
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_organisation_type_form">
+            <field name="name">Organisation Types</field>
+            <field name="res_model">res.organisation.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Organisatietypes" parent="base.menu_organisation_configuration" id="base.organisation_organisation_type" sequence="5" action="action_organisation_type_form"/>
+
+        <record id="view_function_categ_tree" model="ir.ui.view">
+            <field name='name'>view.function.categ.tree</field>
+            <field name='model'>res.function.categ</field>
+            <field name='arch' type='xml'>
+		<tree string="Functiecategoriën">
+			<field name="name"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_function_categ_form" model="ir.ui.view">
+            <field name='name'>view.function.categ.form</field>
+            <field name='model'>res.function.categ</field>
+            <field name='arch' type='xml'>
+		<form string="Functiecategorie">
+			<group colspan="2" col="2">
+				<field name="name"/>
+			</group>
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_function_categ_form">
+            <field name="name">Function Categories</field>
+            <field name="res_model">res.function.categ</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Functiecategoriën" parent="base.menu_organisation_configuration" id="base.organisation_function_categ" sequence="8" action="action_function_categ_form"/>
+
+        <record id="view_function_type_tree" model="ir.ui.view">
+            <field name='name'>view.function.type.tree</field>
+            <field name='model'>res.function.type</field>
+            <field name='arch' type='xml'>
+		<tree string="Functietypes">
+			<field name="name"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_function_type_form" model="ir.ui.view">
+            <field name='name'>view.function.type.form</field>
+            <field name='model'>res.function.type</field>
+            <field name='arch' type='xml'>
+		<form string="Functietype">
+			<group colspan="4" col="2">
+			    <group>
+				<field name="name"/>
+				<field name="categ_id"/>
+			    </group>
+			    <group>
+				<field name="unique_type"/>
+			    </group>
+			</group>
+			<group colspan="4">
+				<separator string="Organisatietypes" colspan="4"/>
+				<field name="organisation_type_ids" nolabel="1">
+					<form string="Organisatietype">
+						<field name="name"/>
+					</form>
+				</field>
+			</group>
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_function_type_form">
+            <field name="name">Function Types</field>
+            <field name="res_model">res.function.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Functietypes" parent="base.menu_organisation_configuration" id="base.organisation_function_type" sequence="10" action="action_function_type_form"/>
+
+        <record id="view_radius_action_tree" model="ir.ui.view">
+            <field name='name'>view.radius.action.tree</field>
+            <field name='model'>res.radius.action</field>
+            <field name='arch' type='xml'>
+		<tree string="Radius of Action">
+			<field name="name"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_radius_action_form" model="ir.ui.view">
+            <field name='name'>view.radius.action.form</field>
+            <field name='model'>res.radius.action</field>
+            <field name='arch' type='xml'>
+		<form string="Werkingsveld">
+			<group colspan="2" col="2">
+				<field name="name"/>
+			</group>
+<!--			<group colspan="4">
+				<separator string="Partners" colspan="4"/>
+				<field name="partner_ids" nolabel="1">
+					<form string="Partners">
+						<field name="name" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+					</form>
+				</field>
+			</group> -->
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_radius_action_form">
+            <field name="name">Radius of Action</field>
+            <field name="res_model">res.radius.action</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Werkingsveld" parent="base.menu_organisation_configuration" id="base.organisation_radius_action" sequence="15" action="action_radius_action_form"/>
+
+        <record id="view_niche_categ_tree" model="ir.ui.view">
+            <field name='name'>view.niche.categ.tree</field>
+            <field name='model'>res.niche.categ</field>
+            <field name='arch' type='xml'>
+		<tree string="Nichecategoriën">
+			<field name="name"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_niche_categ_form" model="ir.ui.view">
+            <field name='name'>view.niche.categ.form</field>
+            <field name='model'>res.niche.categ</field>
+            <field name='arch' type='xml'>
+		<form string="Nichecategorie">
+			<group colspan="2" col="2">
+				<field name="name"/>
+			</group>
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_niche_categ_form">
+            <field name="name">Niche Categories</field>
+            <field name="res_model">res.niche.categ</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Nichecategoriën" parent="base.menu_organisation_configuration" id="base.organisation_niche_categ" sequence="17" action="action_niche_categ_form"/>
+
+        <record id="view_niche_tree" model="ir.ui.view">
+            <field name='name'>view.niche.tree</field>
+            <field name='model'>res.niche</field>
+            <field name='arch' type='xml'>
+		<tree string="Niches">
+			<field name="categ_id"/>
+			<field name="name"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_niche_form" model="ir.ui.view">
+            <field name='name'>view.niche.form</field>
+            <field name='model'>res.niche</field>
+            <field name='arch' type='xml'>
+		<form string="Niche">
+			<group colspan="2" col="2">
+				<field name="name"/>
+				<field name="categ_id"/>
+			</group>
+<!--			<group colspan="4">
+				<separator string="Partners" colspan="4"/>
+				<field name="partner_ids" nolabel="1">
+					<form string="Partners">
+						<field name="name"/>
+					</form>
+				</field>
+			</group> -->
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_niche_form">
+            <field name="name">Niches</field>
+            <field name="res_model">res.niche</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Niches" parent="base.menu_organisation_configuration" id="base.organisation_niche" sequence="20" action="action_niche_form"/>
+
+        <record id="view_organisation_relation_tree" model="ir.ui.view">
+            <field name='name'>view.organisation.relation.tree</field>
+            <field name='model'>res.organisation.relation</field>
+            <field name='arch' type='xml'>
+		<tree string="Organisatierelaties">
+			<field name="name"/>
+			<field name="valid_from_date"/>
+			<field name="valid_to_date"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_organisation_relation_form" model="ir.ui.view">
+            <field name='name'>view.organisation.relation.form</field>
+            <field name='model'>res.organisation.relation</field>
+            <field name='arch' type='xml'>
+		<form string="Organisatierelatie">
+			<group colspan="2" col="2">
+				<field name="name"/>
+                                <field name="partner_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+			</group>
+			<group colspan="2" col="2">
+				<field name="valid_from_date"/>
+				<field name="valid_to_date"/>
+				<field name="remittance_pct"/>
+				<field name="remittance_new_members"/>
+			</group>
+			<group colspan="4">
+				<separator string="Organisatietypes" colspan="4"/>
+				<field name="organisation_type_ids" nolabel="1">
+					<form string="Organisatietype">
+						<field name="name"/>
+					</form>
+				</field>
+			</group>
+			<group colspan="4">
+				<separator string="Functions" colspan="4"/>
+				<field name="function_ids" nolabel="1">
+					<form string="Partner">
+						<field name="partner_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+						<field name="function_type_id"/>
+						<field name="valid_from_date"/>
+						<field name="valid_to_date"/>
+					</form>
+				</field>
+			</group>
+			<group colspan="4">
+				<separator string="Partners" colspan="4"/>
+				<field name="partner_ids" nolabel="1">
+					<form string="Partner">
+						<field name="name"/>
+					</form>
+				</field>
+			</group>
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_organisation_relation_form">
+            <field name="name">Organisation Relations</field>
+            <field name="res_model">res.organisation.relation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Organisatierelaties" parent="base.menu_organisation_organisation" id="base.organisation_organisation_relations" sequence="10" action="action_organisation_relation_form"/>
+
+        <record id="view_organisation_function_tree" model="ir.ui.view">
+            <field name='name'>view.organisation.function.tree</field>
+            <field name='model'>res.organisation.function</field>
+            <field name='arch' type='xml'>
+		<tree string="Organisatiefuncties">
+			<field name="organisation_relation_id" invisible="True"/>
+			<field name="partner_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+			<field name="person_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner2_form'}"/>
+			<field name="function_type_id"/>
+			<field name="valid_from_date"/>
+			<field name="valid_to_date"/>
+		</tree>
+	    </field>
+        </record>
+
+        <record id="view_organisation_function_form" model="ir.ui.view">
+            <field name='name'>view.organisation.function.form</field>
+            <field name='model'>res.organisation.function</field>
+            <field name='arch' type='xml'>
+		<form string="Organisatieunctie">
+			<group colspan="2" col="2">
+				<field name="name" invisible="True"/>
+				<field name="organisation_relation_id" invisible="True"/>
+				<field name="partner_id" domain="[('organisation_type_id','!=',False)]" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+				<field name="person_id" domain="[('organisation_type_id','=',False)]" context="{'form_view_ref' : 'organisation_structure.organisation_partner2_form'}"/>
+				<field name="function_type_id" required="True"/>
+			</group>
+			<group colspan="2" col="2">
+				<field name="valid_from_date"/>
+				<field name="valid_to_date"/>
+			</group>
+		</form>
+	    </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_organisation_function_form">
+            <field name="name">Organisation Functions</field>
+            <field name="res_model">res.organisation.function</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Organisatiefuncties" parent="base.menu_organisation_organisation" id="base.organisation_organisation_functions" sequence="15" action="action_organisation_function_form"/> 
+
+	<record model="ir.ui.view" id="organisation_partner_tree">
+	    <field name="name">organisation.partner.tree</field>
+	    <field name="model">res.partner</field>
+	    <field name="type">tree</field>
+            <field name="arch" type="xml">
+	        <tree string="Organisatiepartners">
+    		    <field name="organisation_type_id"/>
+		    <field name="name"/>
+		    <field name="ref"/>	
+<!--    		    <field name="city"/> -->
+		</tree>
+	    </field>			   
+	</record>
+
+	<record model="ir.ui.view" id="organisation_partner_form">
+	    <field name="name">organisation.partner.form</field>
+	    <field name="model">res.partner</field>
+            <field name="priority" eval="20"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+		<form string="Organisatiepartners" col="1">
+                    <group col="6" colspan="4">
+			<group>
+			<field name="name" attrs="{'readonly': [('analytic_account_id','!=',False)]}"/> 
+			<field name="ref" attrs="{'invisible': [('display_reference','=',False)]}"/>	
+<!--			<field name="npca_id" attrs="{'invisible': [('display_npca','=',False)]}"/> -->
+			<field name="street" readonly="True" attrs="{'invisible': [('display_address','=',False)]}"/>
+			<field name="zip" readonly="True" attrs="{'invisible': [('display_address','=',False)]}"/>
+			<field name="city" readonly="True" attrs="{'invisible': [('display_address','=',False)]}"/>
+			</group>
+			<group>
+			<field name="organisation_type_id"/>
+			<field name="analytic_account_id" attrs="{'invisible': [('display_analytic','=',False)]}"/>
+			<field name="regional_level" attrs="{'invisible': [('display_regional_level','=',False)]}"/>
+			<field name="regional_partnership" attrs="{'invisible': [('display_regional_partnership','=',False)]}"/>
+			</group>
+			<group>
+			<field name="remittance_new_member" attrs="{'invisible': [('display_remittance','=',False)]}"/>
+			<field name="remittance_exist_member" attrs="{'invisible': [('display_remittance','=',False)]}"/>
+			</group>
+			<group>
+			<field name="display_functions_company" invisible="True"/>
+			<field name="display_functions_person" invisible="True"/>
+			<field name="display_remittance" invisible="True"/>
+			<field name="display_relations" invisible="True"/>
+			<field name="display_relations_vertical" invisible="True"/>
+			<field name="display_relations_horizontal" invisible="True"/>
+			<field name="display_radius_action" invisible="True"/>
+			<field name="display_niche" invisible="True"/>
+			<field name="display_reference" invisible="True"/> 
+			<field name="display_npca" invisible="True"/>
+			<field name="display_regional_level" invisible="True"/>
+			<field name="display_nature_up" invisible="True"/>
+			<field name="display_partner_up" invisible="True"/>
+			<field name="display_regional_definition" invisible="True"/>
+			<field name="display_regional_definition_m2m" invisible="True"/>
+			<field name="display_analytic" invisible="True"/>
+			<field name="display_address" invisible="True"/>
+			<field name="display_regional_partnership" invisible="True"/>
+			</group>
+                    </group>
+		    <notebook>
+		    <page string="Relaties" attrs="{'invisible': [('display_relations','=',False)]}">   
+                        <group colspan="1" col="2">
+	       		    <field name="partner_up_id" domain="[('organisation_type_id','!=',False)]" attrs="{'invisible': [('display_partner_up','=',False)]}" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>			
+	       		    <field name="nature_up_id" domain="[('organisation_type_id.nature_area','=',True)]" attrs="{'invisible': [('display_nature_up','=',False)]}" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>			
+			    <field name="partner_down_ids" readonly="True" attrs="{'invisible': [('display_relations_vertical','=',False)]}" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}">
+				<tree string="Onderliggende relaties">
+				    <field name="organisation_type_id"/>
+				    <field name="name" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+				    <field name="ref"/>
+				</tree>
+			    </field>
+			    <field name="organisation_relation_ids" context="{'default_partner_id':active_id, 'default_name':active_id, 'form_view_ref' : 'organisation_structure.organisation_partner_form'}" attrs="{'invisible': [('display_relations_horizontal','=',False)]}">			
+				<tree string="Relaties">
+				    <field name="organisation_type_id"/>
+				    <field name="name" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+				    <field name="ref"/>
+				</tree>
+			    </field>
+                       </group>
+                    </page>	
+		    <page string="Functies" attrs="{'invisible': [('display_functions_company','=',False),('display_functions_person','=',False)]}">   
+                        <group colspan="1" col="2">
+			    <field name="organisation_function_parent_ids" context="{'default_partner_id':active_id, 'default_name':active_id}" attrs="{'invisible': [('display_functions_company','=',False)]}">			
+				<tree string="Functies voor vzw">
+				    <field name="function_categ_id"/>
+				    <field name="function_type_id"/>
+				    <field name="partner_id" invisible="True"/>
+				    <field name="name" invisible="True"/>
+				    <field name="person_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner2_form'}"/>
+				    <field name="valid_from_date"/>
+				    <field name="valid_to_date"/>
+				</tree>
+			    </field>
+			    <field name="organisation_function_child_ids" context="{'default_person_id':active_id, 'default_name':active_id}" attrs="{'invisible': [('display_functions_person','=',False)]}">			
+				<tree string="Functies voor persoon">
+				    <field name="function_categ_id"/>
+				    <field name="function_type_id"/>
+				    <field name="partner_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+				    <field name="name" invisible="True"/>
+				    <field name="person_id" invisible="True"/>
+				    <field name="valid_from_date"/>
+				    <field name="valid_to_date"/>
+				</tree>
+			    </field>
+                        </group>
+                    </page>	
+		    <page string="Niche" attrs="{'invisible': [('display_radius_action','=',False),('display_niche','=',False)]}">   
+                        <group colspan="1" col="2">
+			    <field name="radius_action_ids" attrs="{'invisible': [('display_radius_action','=',False)]}"/>
+			    <field name="niche_ids" attrs="{'invisible': [('display_niche','=',False)]}"/>
+                        </group>
+                    </page>	
+		    <page string="Regionale Definitie" attrs="{'invisible': [('display_regional_definition','=',False)]}">   
+                        <group colspan="1" col="2">
+			    <field name="zip_ids"/>
+                        </group>
+                    </page>	
+		    <page string="Regionale Definitie" attrs="{'invisible': [('display_regional_definition_m2m','=',False)]}">   
+                        <group colspan="1" col="2">
+			    <field name="zip_ids"/>
+                        </group>
+                    </page>	
+		    </notebook>
+		</form>
+	    </field>			   
+	</record>
+		
+	<record model="ir.ui.view" id="organisation_partner2_form">
+	    <field name="name">organisation.partner2.form</field>
+	    <field name="model">res.partner</field>
+            <field name="priority" eval="30"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+		<form string="Organisatiepartners" col="1">
+                    <group col="6" colspan="4">
+			<group>
+			<field name="name" readonly="True"/> 
+			<field name="ref" readonly="True"/>	
+<!--			<field name="npca_id" attrs="{'invisible': [('display_npca','=',False)]}"/> -->
+			<field name="street" readonly="True"/>
+			<field name="zip" readonly="True"/>
+			<field name="city" readonly="True"/>
+			</group>
+			<group>
+			<field name="mobile" readonly="True"/> 
+			<field name="phone" readonly="True"/> 
+			<field name="email" readonly="True"/>
+			</group>
+                    </group>
+		    <notebook>
+		    <page string="Functies">   
+                        <group colspan="1" col="2">
+			    <field name="organisation_function_child_ids" context="{'default_person_id':active_id, 'default_name':active_id}">			
+				<tree string="Functies voor persoon">
+				    <field name="function_categ_id"/>
+				    <field name="function_type_id"/>
+				    <field name="partner_id" context="{'form_view_ref' : 'organisation_structure.organisation_partner_form'}"/>
+				    <field name="name" invisible="True"/>
+				    <field name="person_id" invisible="True"/>
+				    <field name="valid_from_date"/>
+				    <field name="valid_to_date"/>
+				</tree>
+			    </field>
+                        </group>
+                    </page>	
+		    </notebook>
+		</form>
+	    </field>			   
+	</record>
+
+        <record id="organisation_partner_filter" model="ir.ui.view">
+            <field name="name">Organisation Partners</field>
+            <field name="model">res.partner</field>
+            <field name="type">search</field>
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+                <search string="Search Detail">
+                    <group string="Search..." expand="0">
+                        <filter domain="[('organisation_type_id','!=',False)]" name="organisation" string="Organisation Partners"/> 
+                        <field name="name" />
+                        <field name="ref" />
+                        <field name="organisation_type_id" />
+                    </group>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Organisation Type" name="grouptype" context="{'group_by':'organisation_type_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record> 
+
+	<record model="ir.actions.act_window" id="action_organisation_partner">
+            <field name="sequence" eval="20"/>
+	    <field name="name">Organisation Partners</field>
+	    <field name="res_model">res.partner</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+            <field name="domain">[('organisation_type_id','!=',False)]</field>
+	    <field name="view_id" ref="organisation_partner_tree"/>
+	    <field name="search_view_id" ref="organisation_partner_filter"/> 
+            <field name="act_window_id" ref="organisation_partner_form"/>
+	</record> 
+	<record model="ir.actions.act_window.view" id="action_organisation_partner_form"> 
+            <field name="sequence" eval="22"/>
+	    <field name="view_mode">form</field>
+	    <field name="view_id" ref="organisation_partner_form"/>
+	    <field name="act_window_id" ref="action_organisation_partner"/>
+	</record> 
+	<record model="ir.actions.act_window.view" id="action_organisation_partner_tree"> 
+            <field name="sequence" eval="20"/>
+	    <field name="view_mode">tree</field>
+	    <field name="view_id" ref="organisation_partner_tree"/>
+	    <field name="act_window_id" ref="action_organisation_partner"/>
+	</record>
+
+        <menuitem name="Organisatiepartners" parent="base.menu_organisation_organisation" id="base.organisation_partners" sequence="5" action="action_organisation_partner"/>
+
+	<record model="ir.actions.act_window" id="action_function_partner">
+            <field name="sequence" eval="30"/>
+	    <field name="name">Partners met functies</field>
+	    <field name="res_model">res.partner</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+            <field name="domain">[('organisation_function_child_ids', '!=', False)]</field>
+<!--            <field name="context">{'membership':True, 'type':'service', 'default_membership': True, 'default_type': 'service'}</field> -->
+	    <field name="view_id" ref="organisation_partner_tree"/>
+	    <field name="search_view_id" ref="organisation_partner_filter"/> 
+            <field name="act_window_id" ref="organisation_partner2_form"/>
+	</record> 
+	<record model="ir.actions.act_window.view" id="action_function_partner_form"> 
+            <field name="sequence" eval="22"/>
+	    <field name="view_mode">form</field>
+	    <field name="view_id" ref="organisation_partner2_form"/>
+	    <field name="act_window_id" ref="action_function_partner"/>
+	</record> 
+	<record model="ir.actions.act_window.view" id="action_function_partner_tree"> 
+            <field name="sequence" eval="20"/>
+	    <field name="view_mode">tree</field>
+	    <field name="view_id" ref="organisation_partner_tree"/>
+	    <field name="act_window_id" ref="action_function_partner"/>
+	</record>
+
+        <menuitem name="Partners met functies" parent="base.menu_organisation_organisation" id="base.function_partners" sequence="5" action="action_function_partner"/>
+
+<!--        <menuitem name="Structure" parent="base.menu_organisation_organisation" id="base.organisation_structure" sequence="20" action="action_niche_form"/>
+        <menuitem name="Where Used" parent="base.menu_organisation_organisation" id="base.organisation_whereused" sequence="25" action="action_niche_form"/> -->
+
+    <record model="ir.ui.view" id="organisation_partner_tree_form">
+        <field name="name">organisation.partner.tree.form</field>
+        <field name="model">res.partner</field>
+	<field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="organisation_type_id"/>
+            </field> 
+        </field>
+    </record>
+
+    </data>
+</openerp>

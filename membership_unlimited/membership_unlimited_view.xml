@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="membership_product_form" model="ir.ui.view">
+            <field name='name'>membership.product.form</field>
+            <field name='model'>product.template</field>
+            <field name="inherit_id" ref="membership.membership_products_form"/>
+            <field name='arch' type='xml'>
+				<field name="active" position="after">
+					<field name="membership_product"/>
+					<field name="membership_combi" attrs="{'invisible': [('membership_product', '!=', True)]}"/>
+				</field>
+				<field name="membership_date_from" position="attributes">
+					<attribute name="required">False</attribute>
+				</field>
+				<field name="membership_date_to" position="attributes">
+					<attribute name="required">False</attribute>
+				</field>
+                <field name="description_sale" position="after">
+                    <label for="membership_combi_ids" attrs="{'invisible': [('membership_combi', '!=', True)]}"/>
+                    <field name="membership_combi_ids" attrs="{'invisible': [('membership_combi', '!=', True)]}">
+						<tree string="Membership products">
+                    	    <field name="name"/>
+            	    	    <field name="membership_date_from" invisible="1"/>
+            	    	    <field name="membership_date_to" invisible="1"/>
+            	    	    <field name="list_price" string="Membership Fee"/>
+            	    	    <field name="categ_id" invisible="1"/>
+            	    	    <field name="uom_id" invisible="1"/>
+            	    	    <field name="type" invisible="1"/>
+            	    	</tree>
+		    		</field>
+           	    </field>
+            </field>
+        </record>
+
+        <record id="membership_journal_form" model="ir.ui.view">
+            <field name='name'>membership.journal.form</field>
+            <field name='model'>account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name='arch' type='xml'>
+				<field name="sequence_id" position="after">
+					<field name="membership_journal"/>
+				</field>
+            </field>
+        </record>
+
+        <record id="membership_partner_form" model="ir.ui.view">
+            <field name='name'>membership.partner.form</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.view_partner_form"/>
+            <field name='arch' type='xml'>
+				<button string="Buy Membership" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</button>
+                <field name="member_lines" position="replace">
+	    	            <label for="membership_ids"/>
+        		        <field name="membership_ids">
+						    <tree string="Lidmaatschappen" context="{'default_partner_id':active_id}">
+    	    	                <field name="partner_id" invisible="True"/> 
+<!--    	    	            	<field name="analytic_account_id"/> -->
+								<field name="product_id"/>
+    	    		        	<field name="membership_amount"/>
+    	    		        	<field name="membership_start"/>
+    	    		        	<field name="membership_end"/>
+    	    		        	<field name="membership_cancel"/>
+    	    		        	<field name="interval_type"/>
+    	    		        	<field name="interval_number"/>
+    	    		        	<field name="next_invoice_date"/>
+								<field name="state"/>
+    	    		        </tree>
+							<form string="Lidmaatschappen" context="{'default_partner_id':active_id}">
+								<group colspan="6" col="3">
+									<group>
+    	    		                    <field name="partner_id" invisible="True"/> 
+<!--    	    		            	    <field name="analytic_account_id" required="True" on_change="onchange_analacct(analytic_account_id, product_id)"/> -->
+						    			<field name="product_id" required="True" domain="[('membership_product','=',True)]" on_change="onchange_product(product_id, interval_type, interval_number)"/>
+										<field name="nbr_inv_year" on_change="onchange_invyear(nbr_inv_year)"/>
+    	    		        		    <field name="interval_type" required="True" attrs="{'invisible': [('nbr_inv_year', '!=', False)]}" on_change="onchange_product(product_id, interval_type, interval_number)"/>
+    	    		        		    <field name="interval_number" required="True" attrs="{'invisible': [('nbr_inv_year', '!=', False)]}" on_change="onchange_product(product_id, interval_type, interval_number)"/>
+    	    		        		    <field name="membership_amount" required="True"/>
+									</group>
+									<group>
+    	    			        	    <field name="membership_start" required="True"/>
+    	    			        	    <field name="membership_end"/>
+    	    			        	    <field name="membership_cancel"/>
+    	    			        	    <field name="cancel_reason_id"/>
+									</group>
+									<group>
+    	    			        	    <field name="last_invoice_date" readonly="True"/>
+    	    			        	    <field name="next_invoice_date"/>
+									</group>
+								</group>
+        		            </form>
+						</field> 
+						<newline/>
+	        	        <label for="membership_line_ids"/>
+        	    	    <field name="membership_line_ids" readonly="True">
+			    			<tree string="Lidmaatschapsfacturen" context="{'default_partner_id':active_id}">
+        	    	            <field name="partner_id" invisible="True"/> 
+								<field name="date_invoice"/>
+								<field name="invoice_id"/>
+<!--        	    	        	<field name="analytic_account_id"/> -->
+								<field name="product_id"/>
+        	        			<field name="amount_total"/>
+								<field name="invoice_state"/>
+        	        	    </tree>
+						</field> 
+                </field>
+            </field>
+        </record>
+
+	    <record id="view_membership_cancel_search" model="ir.ui.view">
+			<field name="name">view.membership.cancel.search</field>
+			<field name="model">membership.cancel.reason</field>
+			<field name="arch" type="xml">
+			    <search string="Reden Annulatie Lidmaatschap">
+					<group expand="0" string="Selection...">
+					    <field name="ref"/>
+					    <field name="name"/>
+					</group>
+			    </search>
+			</field>
+    	</record>
+
+    	<record id="view_membership_cancel_tree" model="ir.ui.view">
+    	    <field name='name'>view.membership.cancel.tree</field>
+    	    <field name='model'>membership.cancel.reason</field>
+    	    <field name='arch' type='xml'>
+			    <tree string="Reden Annulatie Lidmaatschap">
+					<field name="ref"/>
+					<field name="name"/>
+   			    </tree>
+			</field>
+    	</record>
+
+    	<record id="view_membership_cancel_form" model="ir.ui.view">
+    	    <field name='name'>view.membership.cancel.form</field>
+    	    <field name='model'>membership.cancel.reason</field>
+    	    <field name='arch' type='xml'>
+			    <form string="Reden Annulatie Lidmaatschap">
+					<group colspan="4" col="2">
+					    <group>
+ 					        <field name="ref"/>
+					    </group>
+					    <group>
+					        <field name="name"/>
+					    </group>
+					</group>
+			    </form>
+			</field>
+    	</record>
+
+    	<record model="ir.actions.act_window" id="action_membership_cancel_form">
+    	    <field name="name">Reden Annulatie Lidmaatschap</field>
+    	    <field name="res_model">membership.cancel.reason</field>
+    	    <field name="view_mode">tree,form</field>
+    	    <field name="view_type">form</field>
+			<field name="search_view_id" ref="view_membership_cancel_search"/>
+    	</record>
+
+    	<menuitem name="Reden Annulatie Lidmaatschap" parent="base.menu_marketing_config_association" id="menu_membership_cancel" sequence="250" action="action_membership_cancel_form"/>
+
+    </data>
+</openerp>
+

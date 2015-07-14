@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<record model="ir.ui.view" id="view_partner_form">
+		<field name="name">view.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="non_profit_partner.view_partner_form"/>
+		<field name="arch" type="xml">
+			<separator string="Documenten" position="attributes">
+				<attribute name="invisible">False</attribute>
+			</separator>
+			<separator string="Documenten" position="after">
+				<newline/>
+				<field name="tax_certificate"/>
+			</separator>
+		</field>
+	</record>
+
+	</data>
+</openerp>

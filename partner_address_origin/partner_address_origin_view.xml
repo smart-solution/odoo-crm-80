@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<record model="ir.ui.view" id="view_partner_form">
+		<field name="name">view.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="non_profit_partner.view_partner_form"/>
+		<field name="arch" type="xml">
+			<separator string="Addressinfo" position="attributes">
+				<attribute name="invisible">False</attribute>
+			</separator>
+			<separator string="Addressinfo" position="after">
+				<newline/>
+					<field name="address_origin_id"/>
+				    <field name="address_origin_date" attrs="{'invisible': [('address_origin_id','=',False)]}" />
+			</separator>
+		</field>
+	</record>
+
+    <record id="view_address_origin_category_search" model="ir.ui.view">
+		<field name="name">view.address.origin.category.search</field>
+		<field name="model">res.partner.address.origin.category</field>
+		<field name="arch" type="xml">
+		    <search string="address Origin Category">
+				<group expand="0" string="Selection...">
+				    <field name="ref"/>
+				    <field name="name"/>
+				</group>
+		    </search>
+		</field>
+    </record>
+
+    <record id="view_address_origin_category_tree" model="ir.ui.view">
+        <field name='name'>view.address.origin.category.tree</field>
+        <field name='model'>res.partner.address.origin.category</field>
+        <field name='arch' type='xml'>
+		    <tree string="Address Origin Category">
+				<field name="ref"/>
+				<field name="name"/>
+	   	    </tree>
+		</field>
+    </record>
+
+    <record id="view_address_origin_category_form" model="ir.ui.view">
+        <field name='name'>view.address.origin.category.form</field>
+        <field name='model'>res.partner.address.origin.category</field>
+        <field name='arch' type='xml'>
+	    <form string="Address Origin Category">
+		<group colspan="4" col="2">
+		    <group>
+ 		        <field name="ref"/>
+		    </group>
+		    <group>
+		        <field name="name"/>
+		    </group>
+		</group>
+	    </form>
+	</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_address_origin_category_form">
+        <field name="name">Address Origin Category</field>
+        <field name="res_model">res.partner.address.origin.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+		<field name="search_view_id" ref="view_address_origin_category_search"/>
+    </record>
+
+    <menuitem name="Address Origin Category" parent="base.menu_marketing_config_association" id="menu_address_origin_category" sequence="21" action="action_address_origin_category_form"/>
+
+    <record id="view_address_origin_search" model="ir.ui.view">
+	<field name="name">view.address.origin.search</field>
+	<field name="model">res.partner.address.origin</field>
+	<field name="arch" type="xml">
+	    <search string="Address Origin">
+		<group expand="0" string="Selection...">
+		    <field name="ref"/>
+		    <field name="name"/>
+		</group>
+	    </search>
+	</field>
+    </record>
+
+    <record id="view_address_origin_tree" model="ir.ui.view">
+        <field name='name'>view.address.origin.tree</field>
+        <field name='model'>res.partner.address.origin</field>
+        <field name='arch' type='xml'>
+		    <tree string="Origin">
+				<field name="address_origin_category_id"/>
+				<field name="ref"/>
+				<field name="name"/>
+	   	    </tree>
+		</field>
+    </record>
+    
+    <record id="view_address_origin_form" model="ir.ui.view">
+        <field name='name'>view.address.origin.form</field>
+        <field name='model'>res.partner.address.origin</field>
+        <field name='arch' type='xml'>
+		    <form string="Origin">
+				<group colspan="4" col="2">
+				    <group>
+		 		        <field name="ref"/>
+				        <field name="name"/>
+				    </group>
+				    <group>
+					<field name="address_origin_category_id"/>
+				    </group>
+				</group>
+		    </form>
+		</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_address_origin_form">
+        <field name="name">Address Origin</field>
+        <field name="res_model">res.partner.address.origin</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+		<field name="search_view_id" ref="view_address_origin_search"/>
+    </record>
+
+    <menuitem name="Address Origin" parent="base.menu_marketing_config_association" id="menu_address_origin" sequence="22" action="action_address_origin_form"/>
+
+	</data>
+</openerp>

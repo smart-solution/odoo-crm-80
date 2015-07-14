@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name='name'>view.partner.form</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.view_partner_form"/>
+            <field name='arch' type='xml'>
+	            <page string="Contacts" position="after">
+	            	<page string="Persoonsgegevens">
+	            	<group colspan="4" col="2">
+		        		<group>
+			    			<separator string="Aanbrenginfo" invisible="True"/>
+	    				</group>
+				        <group>
+						    <separator string="Addressinfo" invisible="True"/>
+	    				</group>
+				        <group>
+						    <separator string="Documenten" invisible="True"/>
+	    				</group>
+    				</group>
+	            	</page>
+            	</page>
+			</field>
+        </record>
+
+    </data>
+</openerp>

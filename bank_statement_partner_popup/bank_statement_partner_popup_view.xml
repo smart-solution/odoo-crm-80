@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="view_np_bank_statement_tree">
+        <field name="name">view.np.bank.statement.tree</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='partner_id']" position="after">
+                <button name="create_partner" type="object" icon="terp-partner"/>
+				<field name="analytic_account_id"/>
+				<field name="membership_invoice_id" readonly="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_bank_statement_create_partner_form">
+        <field name="name">view.bank.statement.create.partner.form</field>
+        <field name="model">bank.statement.create.partner</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Partner Aanmaken">
+				<group>
+					<group colspan="4">
+						<group>
+							<field name="transaction_amount" readonly="True"/>
+							<field name="free_comm" readonly="True"/>
+							<field name="bank_account_id" readonly="True"/>
+						</group>
+						<group>
+							<field name="partner_id" on_change="onchange_partner_id(partner_id)"/>
+							<field name="partner_address" readonly="True" attrs="{'invisible':[('partner_id','==',False)]}"/>
+							<field name="membership_state" readonly="True" attrs="{'invisible':[('partner_id','==',False)]}"/>
+						    <field name="name" required="True" attrs="{'invisible':[('partner_id','!=',False)]}"/>
+						    <field name="first_name" on_change="onchange_name(first_name, middle_name, last_name, name)" attrs="{'invisible':[('partner_id','!=',False)]}"/>
+							<field name="middle_name" on_change="onchange_name(first_name, middle_name, last_name, name)" attrs="{'invisible':[('partner_id','!=',False)]}"/>
+						    <field name="last_name" on_change="onchange_name(first_name, middle_name, last_name, name)" attrs="{'invisible':[('partner_id','!=',False)]}"/>
+							<field name="initials"/>
+						</group>
+				    </group>
+					<newline/>
+					<group colspan="4">
+						<group>
+							<field name="add_bank_account"/>
+							<field name="bic" attrs="{'invisible':[('add_bank_account','=',False)]}"/>
+							<field name="bank_account" on_change="onchange_bankacct(bank_account)" attrs="{'invisible':[('add_bank_account','=',False)]}"/>
+						</group>
+						<group>
+						    <field name="street" attrs="{'invisible':[('partner_id','!=',False)]}" on_change="onchange_address(street, zip, city)"/>
+						    <field name="zip" attrs="{'invisible':[('partner_id','!=',False)]}" on_change="onchange_address(street, zip, city)"/>
+						    <field name="city" attrs="{'invisible':[('partner_id','!=',False)]}" on_change="onchange_address(street, zip, city)"/>
+						    <field name="double_address" readonly="True"/>
+						</group>
+				    </group>
+					<group colspan="4">
+						<group>
+							<field name="membership_partner"/>
+							<field name="membership_invoice_id" attrs="{'invisible':[('membership_partner','=',False)]}" domain="[('partner_id','=',partner_id),('membership_invoice','=',True),('state','=','open')]"/>
+						</group>
+						<group>
+							<field name="donation_partner"/>
+							<field name="analytic_account_id" attrs="{'invisible':[('donation_partner','=',False)]}"/>
+						</group>
+					</group>
+				</group>
+				<group colspan="4" col="4">
+				    <button string="Bevestig Partner" name="create_partner" icon="gtk-ok" type="object"/>
+				    <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+				</group>
+		    </form>
+    	</field>
+    </record>
+
+    </data>
+</openerp>

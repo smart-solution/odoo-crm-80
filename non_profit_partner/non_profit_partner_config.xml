@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_non_profit_partner_config" model="ir.ui.view">
+            <field name="name">Non_profit partner settings</field>
+            <field name="model">non.profit.partner.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Social Profit" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <label string="Hoover over an option for more information."/>
+                    <label string="Remember a refresh in your browser will be needed to reflect installed changes"/>
+                    <separator string="Social Profit Partner Resources Management"/>
+                    <group colspan="4" col="1">
+                        <label for="id" string="Social Profit Partner Features"/>
+                        <div name='module_partner_membership_origin'>
+                            <field name="module_partner_membership_origin" class="oe_inline"/>
+                            <label for="module_partner_membership_origin"/>
+                        </div>
+                        <div name='module_partner_areas_of_interest'>
+                            <field name="module_partner_areas_of_interest" class="oe_inline"/>
+                            <label for="module_partner_areas_of_interest"/>
+                        </div>
+                        <div name='module_partner_use_crab'>
+                            <field name="module_partner_use_crab" class="oe_inline"/>
+                            <label for="module_partner_use_crab"/>
+                        </div>
+                        <div name='module_partner_address_origin'>
+                            <field name="module_partner_address_origin" class="oe_inline"/>
+                            <label for="module_partner_address_origin"/>
+                        </div>
+                        <div name='module_partner_address_state'>
+                            <field name="module_partner_address_state" class="oe_inline"/>
+                            <label for="module_partner_address_state"/>
+                        </div>
+                        <div name='module_partner_address_history'>
+                            <field name="module_partner_address_history" class="oe_inline"/>
+                            <label for="module_partner_address_history"/>
+                        </div>
+                        <div name='module_partner_address_check'>
+                            <field name="module_partner_address_check" class="oe_inline"/>
+                            <label for="module_partner_address_check"/>
+                        </div>
+                        <div name='module_partner_personal_data'>
+                            <field name="module_partner_personal_data" class="oe_inline"/>
+                            <label for="module_partner_personal_data"/>
+                        </div>
+                        <div name='module_first_name_last_name'>
+                            <field name="module_first_name_last_name" class="oe_inline"/>
+                            <label for="module_first_name_last_name"/>
+                        </div>
+                        <div name='module_partner_tax_certif'>
+                            <field name="module_partner_tax_certif" class="oe_inline"/>
+                            <label for="module_partner_tax_certif"/>
+                        </div>
+                        <div name='module_partner_welcome_package'>
+                            <field name="module_partner_welcome_package" class="oe_inline"/>
+                            <label for="module_partner_welcome_package"/>
+                        </div>
+                        <div name='module_partner_no_magazine'>
+                            <field name="module_partner_no_magazine" class="oe_inline"/>
+                            <label for="module_partner_no_magazine"/>
+                        </div>
+                    </group>
+                    <separator string="Organisation Structure Management"/>
+                    <group colspan="4" col="1">
+                        <label for="id" string="Organisation Structure Features"/>
+                        <div name='module_orgstruct'>
+                            <field name="module_orgstruct" class="oe_inline" on_change="onchange_orgstruct(module_orgstruct)"/>
+                            <label for="module_orgstruct"/>
+                        </div>
+                        <div name='module_orgstruct_radius_action'>
+                            <field name="module_orgstruct_radius_action" class="oe_inline" on_change="onchange_orgstruct_radius_action(module_orgstruct_radius_action)"/>
+                            <label for="module_orgstruct_radius_action"/>
+                        </div>
+                        <div name='module_orgstruct_niche'>
+                            <field name="module_orgstruct_niche" class="oe_inline" on_change="onchange_orgstruct_niche(module_orgstruct_niche)"/>
+                            <label for="module_orgstruct_niche"/>
+                        </div>
+                    </group>
+                    <separator string="Membership and Donation Management"/>
+                    <group colspan="4" col="1">
+                        <label for="id" string="Membership and Donation Features"/>
+                        <div name='module_membership_unlimited'>
+                            <field name="module_membership_unlimited" class="oe_inline"/>
+                            <label for="module_membership_unlimited"/>
+                        </div>
+                        <div name='module_donation'>
+                            <field name="module_donation" class="oe_inline"/>
+                            <label for="module_donation"/>
+                        </div>
+                         <div name='module_partner_no_free_member'>
+                            <field name="module_partner_no_free_member" class="oe_inline"/>
+                            <label for="module_partner_no_free_member"/>
+                        </div>
+                    </group>
+                    <separator string="Social Profit Project Management"/>
+                    <group colspan="4" col="1">
+                        <label for="id" string="Non-Profit Project Features"/>
+                        <div name='module_non_profit_projects'>
+                            <field name="module_non_profit_projects" class="oe_inline"/>
+                            <label for="module_non_profit_projects"/>
+                        </div>
+                    </group>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_non_profit_partner_configuration" model="ir.actions.act_window">
+            <field name="name">Configure Non Profit Partners</field>
+            <field name="res_model">non.profit.partner.config.settings</field>
+            <field name="view_id" ref="view_non_profit_partner_config"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="menu_non_profit_partner_resources_configuration" name="Non Profit Partner Resources" parent="base.menu_config"
+            sequence="25" action="action_non_profit_partner_configuration"/>
+
+	</data>
+</openerp>
+            

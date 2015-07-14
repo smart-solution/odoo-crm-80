@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+	<record id="purchase.menu_purchase_rfq" model="ir.ui.menu">
+		<field name="sequence">8</field>
+	</record>
+
+	<record id="purchase.menu_purchase_form_action" model="ir.ui.menu">
+		<field name="sequence">10</field>
+	</record>
+
+	<record id="purchase_requisition.menu_purchase_requisition_pro_mgt" model="ir.ui.menu">
+		<field name="sequence">2</field>
+	</record>
+
+    </data>
+</openerp>

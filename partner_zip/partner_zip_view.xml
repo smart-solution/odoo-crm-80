@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<record id="view_country_city_search" model="ir.ui.view">
+		<field name="name">view.country.city.search</field>
+		<field name="model">res.country.city</field>
+		<field name="arch" type="xml">
+			<search string="Cities/Zip-Codes">
+				<group expand="0" string="Selection...">
+					<field name="zip"/>
+					<field name="name"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+    <record id="view_country_city_tree" model="ir.ui.view">
+        <field name='name'>view.country.city.tree</field>
+        <field name='model'>res.country.city</field>
+        <field name='arch' type='xml'>
+			<tree string="City">
+				<field name="name"/>
+				<field name="zip"/>
+				<field name="country_id"/>
+				<field name="state_id"/>
+				<field name="lang_id"/>
+			</tree>
+	   	</field>
+    </record>
+
+    <record id="view_country_city_form" model="ir.ui.view">
+        <field name='name'>view.country.city.form</field>
+        <field name='model'>res.country.city</field>
+        <field name='arch' type='xml'>
+			<form string="State">
+				<group colspan="4" col="2">
+					<field name="country_id"/>
+					<field name="state_id" domain="[('country_id','=',country_id)]"/>
+					<field name="name"/>
+					<field name="zip" />
+					<field name="lang_id"/>
+				</group>
+				<group colspan="4">
+					<separator string="Streets" colspan="4"/>
+					<field name="street_ids" nolabel="1" context="{'default_city_id':active_id}">
+						<form string="Street">
+							<field name="name"/>
+							<field name="city_id" readonly="1"/>
+						</form>
+					</field>
+				</group>
+			</form>
+	    </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_country_city_form">
+        <field name="name">Cities</field>
+        <field name="res_model">res.country.city</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+	    <field name="search_view_id" ref="view_country_city_search"/>
+    </record>
+
+    <menuitem name="Cities" parent="base.menu_localisation" id="menu_country_city" sequence="5" action="action_country_city_form"/>
+
+    <record id="view_country_city_street_tree" model="ir.ui.view">
+        <field name='name'>view.country.city.street.tree</field>
+        <field name='model'>res.country.city.street</field>
+        <field name='arch' type='xml'>
+			<tree string="Street">
+				<field name="name"/>
+				<field name="city_id"/>
+				<field name="country_id"/>
+			</tree>
+    	</field>
+    </record>
+
+    <record id="view_country_city_street_form" model="ir.ui.view">
+        <field name='name'>view.country.city.street.form</field>
+        <field name='model'>res.country.city.street</field>
+        <field name='arch' type='xml'>
+			<form string="Street">
+				<field name="city_id"/>
+				<field name="name"/>
+				<field name="country_id"/>
+			</form>
+   		</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_country_city_street_form">
+        <field name="name">Streets</field>
+        <field name="res_model">res.country.city.street</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem name="Streets" parent="base.menu_localisation" id="menu_country_city_street" sequence="7" action="action_country_city_street_form"/>
+
+    </data>
+</openerp>

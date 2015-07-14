@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="donation_product_form" model="ir.ui.view">
+            <field name='name'>donation.product.form</field>
+            <field name='model'>product.template</field>
+            <field name="inherit_id" ref="membership.membership_products_form"/>
+            <field name='arch' type='xml'>
+		<field name="active" position="after">
+		    <field name="donation_product"/>
+		</field>
+            </field>
+        </record>
+
+        <record id="donation_journal_form" model="ir.ui.view">
+            <field name='name'>donation.journal.form</field>
+            <field name='model'>account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name='arch' type='xml'>
+		<field name="sequence_id" position="after">
+		    <field name="donation_journal"/>
+		</field>
+            </field>
+        </record>
+
+        <record id="donation_partner_form" model="ir.ui.view">
+            <field name='name'>donation.partner.form</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.view_partner_form"/>
+            <field name='arch' type='xml'>
+                <page string="Membership" position="after">
+				    <page string="SEPA Giften">
+	    	            <label for="donation_ids"/>
+        		        <field name="donation_ids">
+						    <tree string="Giften" context="{'default_partner_id':active_id}">
+    	    	                <field name="partner_id" invisible="True"/> 
+    	    	            	<field name="analytic_account_id"/>
+    	    		        	<field name="donation_amount"/>
+    	    		        	<field name="donation_start"/>
+    	    		        	<field name="donation_end"/>
+    	    		        	<field name="donation_cancel"/>
+    	    		        	<field name="interval_type"/>
+    	    		        	<field name="interval_number"/>
+    	    		        	<field name="next_invoice_date"/>
+    	    		        </tree>
+							<form string="Giften" context="{'default_partner_id':active_id}">
+								<group colspan="6" col="3">
+									<group>
+    	    		                    <field name="partner_id" invisible="True"/> 
+    	    		            	    <field name="analytic_account_id" required="True" on_change="onchange_analacct(analytic_account_id, product_id)"/>
+    	    		        		    <field name="donation_amount" required="True"/>
+    	    		        		    <field name="interval_type" required="True"/>
+    	    		        		    <field name="interval_number" required="True"/>
+						    			<field name="product_id" required="True" domain="[('donation_product','=',True)]"/>
+									</group>
+									<group>
+    	    			        	    <field name="donation_start" required="True"/>
+    	    			        	    <field name="donation_end"/>
+    	    			        	    <field name="donation_cancel"/>
+    	    			        	    <field name="cancel_reason_id"/>
+									</group>
+									<group>
+    	    			        	    <field name="last_invoice_date" readonly="True"/>
+    	    			        	    <field name="next_invoice_date" readonly="True"/>
+									</group>
+								</group>
+        		            </form>
+						</field> 
+						<newline/>
+	        	        <label for="donation_line_ids"/>
+        	    	    <field name="donation_line_ids" readonly="True">
+			    			<tree string="Giftfacturen" context="{'default_partner_id':active_id}">
+        	    	            <field name="partner_id" invisible="True"/> 
+								<field name="date_invoice"/>
+								<field name="invoice_id"/>
+        	    	        	<field name="analytic_account_id"/>
+        	        			<field name="amount_total"/>
+								<field name="invoice_state"/>
+        	        	    </tree>
+						</field> 
+		    		</page> 
+                </page>
+            </field>
+        </record>
+
+	    <record id="view_donation_cancel_search" model="ir.ui.view">
+			<field name="name">view.donation.cancel.search</field>
+			<field name="model">donation.cancel.reason</field>
+			<field name="arch" type="xml">
+			    <search string="Reden Annulatie Gift">
+					<group expand="0" string="Selection...">
+					    <field name="ref"/>
+					    <field name="name"/>
+					</group>
+			    </search>
+			</field>
+    	</record>
+
+    	<record id="view_donation_cancel_tree" model="ir.ui.view">
+    	    <field name='name'>view.donation.cancel.tree</field>
+    	    <field name='model'>donation.cancel.reason</field>
+    	    <field name='arch' type='xml'>
+			    <tree string="Reden Annulatie Gift">
+					<field name="ref"/>
+					<field name="name"/>
+   			    </tree>
+			</field>
+    	</record>
+
+    	<record id="view_donation_cancel_form" model="ir.ui.view">
+    	    <field name='name'>view.donation.cancel.form</field>
+    	    <field name='model'>donation.cancel.reason</field>
+    	    <field name='arch' type='xml'>
+			    <form string="Reden Annulatie Gift">
+					<group colspan="4" col="2">
+					    <group>
+ 					        <field name="ref"/>
+					    </group>
+					    <group>
+					        <field name="name"/>
+					    </group>
+					</group>
+			    </form>
+			</field>
+    	</record>
+
+    	<record model="ir.actions.act_window" id="action_donation_cancel_form">
+    	    <field name="name">Reden Annulatie Gift</field>
+    	    <field name="res_model">donation.cancel.reason</field>
+    	    <field name="view_mode">tree,form</field>
+    	    <field name="view_type">form</field>
+			<field name="search_view_id" ref="view_donation_cancel_search"/>
+    	</record>
+
+    	<menuitem name="Reden Annulatie Gift" parent="base.menu_marketing_config_association" id="menu_donation_cancel" sequence="200" action="action_donation_cancel_form"/>
+
+    </data>
+</openerp>
+

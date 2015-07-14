@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="partner_address_in_tree_tree" model="ir.ui.view">
+            <field name='name'>partner.address.in.tree.tree</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.membership_members_tree"/>
+            <field name='arch' type='xml'>
+				<field name="membership_state" position="before">
+					<field name="street"/>
+					<field name="zip"/>
+					<field name="city"/>
+	    		</field> 
+            </field>
+        </record>
+
+        <record id="partner_address_in_tree_search" model="ir.ui.view">
+            <field name='name'>partner.address.in.tree.search</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.view_res_partner_member_filter"/>
+            <field name='arch' type='xml'>
+				<field name="membership_start" position="before">
+					<field name="street"/>
+					<field name="zip"/>
+					<field name="city"/>
+	    		</field> 
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="membership.action_membership_members">
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="membership.action_membership_members_view_kanban">
+        <field name="sequence" eval="5"/>
+    </record>
+
+    </data>
+</openerp>
+

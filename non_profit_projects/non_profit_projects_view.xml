@@ -1,0 +1,397 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+    <!--
+       Project Themes General
+   -->
+
+    <record model="ir.ui.view" id="view_project_theme_general_tree">
+        <field name="name">view.project_theme_general.tree</field>
+        <field name="model">project.theme.general</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Project Themas General">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_project_theme_general_form">
+        <field name="name">view.project_theme_general.form</field>
+        <field name="model">project.theme.general</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Project Themas General">
+				<group colspan="4" col="2">
+		    		    <field name="name"/>
+				</group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_project_theme_general">
+        <field name="name">Project Themes General</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.theme.general</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_project_theme_general_tree"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_project_theme_general_tree_view">
+        <field name="sequence">10</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_project_theme_general_tree"/>
+        <field name="act_window_id" ref="action_project_theme_general"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_project_theme_general_form_view">
+        <field name="sequence">20</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_project_theme_general_form"/>
+        <field name="act_window_id" ref="action_project_theme_general"/>
+    </record>
+
+    <menuitem name="Project Themas General" id="menu_project_theme_general_form" action="action_project_theme_general" parent="base.menu_definitions" sequence="30"/>
+
+    <!--
+       Project Themes Detail
+   -->
+
+    <record model="ir.ui.view" id="view_project_theme_detail_tree">
+        <field name="name">view.project_theme_detail.tree</field>
+        <field name="model">project.theme.detail</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Project Themas Detail">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_project_theme_detail_form">
+        <field name="name">view.project_theme_detail.form</field>
+        <field name="model">project.theme.detail</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Project Themas Detail">
+				<group colspan="4" col="2">
+		    		    <field name="name"/>
+				</group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_project_theme_detail">
+        <field name="name">Project Themes Detail</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.theme.detail</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_project_theme_detail_tree"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_project_theme_detail_tree_view">
+        <field name="sequence">10</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_project_theme_detail_tree"/>
+        <field name="act_window_id" ref="action_project_theme_detail"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_project_theme_detail_form_view">
+        <field name="sequence">20</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_project_theme_detail_form"/>
+        <field name="act_window_id" ref="action_project_theme_detail"/>
+    </record>
+
+    <menuitem name="Project Themas Detail" id="menu_project_theme_detail_form" action="action_project_theme_detail" parent="base.menu_definitions" sequence="40"/>
+
+    <record model="ir.ui.view" id="view_non_profit_project_form">
+        <field name="name">view.non.profit.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+	    <field name="state" position="attributes">
+			<attribute name="invisible">True</attribute>
+	    </field>
+	    <button name="set_open" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="set_done" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="set_open" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="set_pending" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="set_template" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="reset_project" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="set_cancel" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="duplicate_template" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </button>
+	    <button name="set_cancel" position="after">
+		<button name="project_not_submitted" string="Niet Ingediend" type="object" class="oe_highlight" attrs="{'invisible': [('project_state','in',('not_submitted','submitted','partial_approved','approved','in_process','closed','refused'))]}"/>
+		<button name="project_submitted" string="Ingediend" type="object" class="oe_highlight" attrs="{'invisible': [('project_state','in',('submitted','partial_approved','approved','in_process','closed','refused'))]}"/>
+		<button name="project_partial_approved" string="Deels Goedgek." type="object" class="oe_highlight" attrs="{'invisible': [('project_state','in',('draft','not_submitted','partial_approved','approved','in_process','closed','refused'))]}"/>
+		<button name="project_partial_approved" string="Deels Goedgek." type="object" attrs="{'invisible': [('project_state','in',('submitted','not_submitted','partial_approved','approved','in_process','closed','refused'))]}"/>
+		<button name="project_approved" string="Goedgekeurd" type="object" class="oe_highlight" attrs="{'invisible': [('project_state','in',('draft','not_submitted','approved','in_process','closed','refused'))]}"/>
+		<button name="project_approved" string="Goedgekeurd" type="object" attrs="{'invisible': [('project_state','in',('submitted','not_submitted','approved','in_process','closed','refused'))]}"/>
+		<button name="project_in_process" string="Lopend" type="object" class="oe_highlight" attrs="{'invisible': [('project_state','in',('draft','not_submitted','submitted','in_process','closed','refused'))]}"/>
+		<button name="project_in_process" string="Lopend" type="object" attrs="{'invisible': [('project_state','in',('draft','not_submitted','submitted','partial_approved','approved','in_process','refused'))]}"/>
+		<button name="project_reset_draft" string="Reset" type="object" attrs="{'invisible': [('project_state','in',('draft'))]}"/>
+		<button name="project_closed" string="Beëindigen" type="object" class="oe_highlight" attrs="{'invisible': [('project_state','in',('draft','not_submitted','submitted','partial_approved','approved','closed','refused'))]}"/>
+		<button name="project_closed" string="Beëindigen" type="object" attrs="{'invisible': [('project_state','in',('in_process','closed','refused'))]}"/>
+		<button name="project_refused" string="Afgekeurd" type="object" attrs="{'invisible': [('project_state','in',('partial_approved','approved','in_process','closed','refused'))]}"/>
+	    </button>
+	    <field name="state" position="before">
+		<field name="project_state" widget="statusbar" readonly="1"/>
+	    </field>
+			<field name="partner_id" position="after">
+			    <field name="main_contractor_id"/>
+		            <field name="seq" domain="[('code','=','project.project')]"/>
+		            <field name="code" readonly="1"/>
+			</field>
+			<field name="date_start" position="replace"/>
+			<field name="date" position="replace"/>
+			<field name="user_id" position="after">
+				<field name="contact_id" required="True"/>
+			    <field name="date_start"/>
+			    <field name="date"/>
+			</field>
+		<field name="partner_id" position="attributes">
+			<attribute name="string">Opdrachtgever</attribute>
+			<attribute name="required">True</attribute>
+		</field>
+			<page string="Team" position="before">
+			    <page string="Algemeen">
+				<group colspan="4" col="2">	
+		        	    <field name="ident_nbr"/>
+		        	    <field name="full_name"/>
+				    <field name="description"/>
+				</group>
+			    </page>
+			    <page string="Taken" attrs="{'invisible': [('use_tasks','=',False)]}">
+			    	<field name="tasks" nolabel="1" context="{'default_project_id':active_id}">
+						<tree string="Taken" context="{'default_project_id':active_id}">
+    	    	            <field name="project_id" invisible="True"/> 
+    	    	        	<field name="name"/>
+    	    		      	<field name="user_id"/>
+    	    		       	<field name="date_start"/>
+    	    		       	<field name="date_end"/>
+    	    		       	<field name="date_deadline"/>
+							<field name="categ_ids" widget="many2many_tags"/>
+							<field name="stage_id"/>
+							<field name="progress" widget="progressbar" invisible="context.get('set_visible',False)" modifiers="{'readonly': true, 'tree_invisible': false}"/>
+    	    		    </tree>
+					</field>
+		    	</page>
+			    <page string="Contractanten">
+				<separator string="Medecontractanten"/>
+			    	<field name="co_contractor_ids" nolabel="1" context="{'default_project_id':active_id}">
+						<tree string="Medecontractanten" context="{'default_project_id':active_id}">
+							<field name="id"/>
+    	    	        	<field name="name"/>
+    	    		      	<field name="street"/>
+    	    		       	<field name="zip"/>
+    	    		       	<field name="city"/>
+    	    		       	<field name="vat"/>
+    	    		    </tree>
+					</field>
+				<separator string="Onderaannemers"/>
+			    	<field name="sub_contractor_ids" nolabel="1" context="{'default_project_id':active_id}">
+						<tree string="Onderaannemers" context="{'default_project_id':active_id}">
+							<field name="id"/>
+    	    	        	<field name="name"/>
+    	    		      	<field name="street"/>
+    	    		       	<field name="zip"/>
+    	    		       	<field name="city"/>
+    	    		       	<field name="vat"/>
+    	    		    </tree>
+					</field>
+		    	</page>
+			    <page string="Themas">
+				<separator string="Thema Algemeen"/>
+			    	<field name="theme_general_ids">
+					    <tree>
+					    	<field name="name"/>
+					    </tree>
+				    </field>
+				<separator string="Thema Detail"/>
+			    	<field name="theme_detail_ids">
+					    <tree>
+					    	<field name="name"/>
+					    </tree>
+				    </field>
+			    </page>
+			    <page string="Financieel">
+					<group colspan="4" col="2">
+					<group>
+		        		<field name="req_amount"/>
+		        		<field name="appr_amount_excl"/>
+		        		<field name="vat"/>
+		        		<field name="appr_amount_incl" attrs="{'invisible': [('vat','=',False)]}"/>
+		        		<field name="date_approved"/>
+					</group>
+					<group>
+		        		<field name="caution"/>
+		        		<field name="caution_amt"/>
+		        		<field name="overhead_pct"/>
+		        		<field name="subs_pct"/>
+					</group>
+					</group>
+			    </page>
+			    <page string="Overeenkomsten">
+			    	<group colspan="4" col="2">
+					<group>
+			    		<field name="user_agreement"/>
+			    		<field name="partner_agreement"/>
+			    		<field name="certif"/>
+			    		<field name="subc_agreement"/>
+					</group>
+		    		</group>
+			    </page>
+			</page>
+			<field name="parent_id" position="after">
+				<field name="timesheet_required"/>
+			</field>
+		</field>
+	</record>
+
+    <record model="ir.ui.view" id="view_non_profit_project_tree">
+        <field name="name">view.non.profit.project.tree</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+	    <field name="name" position="before">
+			<field name="code"/>
+	    </field>
+	    <field name="planned_hours" position="replace"/>
+		    <field name="total_hours" position="replace"/>
+		    <field name="effective_hours" position="replace"/>
+		    <field name="progress_rate" position="replace"/>
+		    <field name="state" position="attributes">
+			<attribute name="invisible">True</attribute>
+	    </field>
+	    <field name="date" position="replace"/>
+	    <field name="partner_id" position="after">
+			<field name="ident_nbr"/>
+			<field name="req_amount" sum="Requested Amount"/>
+			<field name="appr_amount_excl" sum="Amount Approved"/>
+			<field name="date_approved"/>
+			<field name="date_start"/>
+			<field name="date"/>
+			<field name="project_state"/>
+	    </field>
+		<field name="user_id" position="after">
+			<field name="contact_id"/>
+		</field>
+		<field name="partner_id" position="attributes">
+			<attribute name="string">Opdrachtgever</attribute>
+		</field>
+	</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_non_profit_project_filter">
+        <field name="name">view.non.profit.project.filter</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+	    <filter string="Manager" position="before">
+		<filter string="Projectstatus" name="Projectstatus" icon="terp-personal" domain="[]" context="{'group_by':'project_state'}"/>
+	    </filter>
+	    <filter string="Open" position="attributes">
+		<attribute name="invisible">True</attribute>
+		<attribute name="icon">gtk-media-pause</attribute>
+	    </filter>
+	    <filter string="Pending" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </filter>
+	    <filter string="Template" position="attributes">
+		<attribute name="invisible">True</attribute>
+	    </filter>
+	    <filter string="Template" position="after">
+		<filter icon="terp-check" string="Ontwerp" name="Ontwerp" domain="[('project_state', '=','draft')]"/>
+		<filter icon="terp-check" string="Niet Inged." name="NietIngediend" domain="[('project_state', '=','not_submitted')]"/>
+		<filter icon="terp-check" string="Ingediend" name="Ingediend" domain="[('project_state', '=','submitted')]"/>
+		<filter icon="terp-check" string="Gedeeltelijk Goedgek." name="GedeeltelijkGoedgekeurd" domain="[('project_state', '=','partial_approved')]"/>
+		<filter icon="terp-check" string="Goedgekeurd" name="Goedgekeurd" domain="[('project_state', '=','approved')]"/>
+		<filter icon="terp-check" string="Lopend" name="Lopend" domain="[('project_state', '=','in_process')]"/>
+		<filter icon="terp-check" string="Beëindigd" name="Beëindigd" domain="[('project_state', '=','closed')]"/>
+		<filter icon="terp-check" string="Afgekeurd" name="Afgekeurd" domain="[('project_state', '=','refused')]"/>
+	    </filter>
+	</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="project.open_view_project_all">
+        <field name="view_mode">tree,form,gantt,kanban</field>
+	<field name="context">{'search_default_Ontwerp':1, 'search_default_NietIngediend':1, 'search_default_Ingediend':1, 'search_default_GedeeltelijkGoedgekeurd':1, 'search_default_Goedgekeurd':1, 'search_default_Lopend': 1}</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_non_profit_task_form">
+        <field name="name">view.non.profit.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+			<field name="partner_id" position="attributes">
+				<attribute name="invisible">True</attribute>
+			</field>
+		</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_non_profit_task_tree">
+        <field name="name">view.non.profit.task.tree</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+			<field name="date_deadline" position="attributes">
+				<attribute name="invisible">False</attribute>
+			</field>
+		</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_non_profit_project_analytic_form">
+        <field name="name">view.non.profit.project.analytic.form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+			<field name="parent_id" position="replace">
+				<field name="parent_id" on_change="on_change_parent(parent_id)"/>
+			</field>
+			<field name="template_id" position="attributes">
+				<attribute name="invisible">True</attribute>
+			</field>
+		</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_non_profit_project_search_form">
+        <field name="name">view.non.profit.project.search.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+			<filter string="Contact" position="replace">
+				<filter string="Opdrachtgever" name="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+				<filter string="Contactpersoon" name="Partner" icon="terp-partner" domain="[]" context="{'group_by':'contact_id'}"/>
+			</filter>
+		</field>
+    </record>
+
+    </data>
+</openerp>

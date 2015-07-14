@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="membership_first_last_name_form" model="ir.ui.view">
+            <field name='name'>membership.first.last.name.form</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name='arch' type='xml'>
+				<field name="name" position="after">
+	    			<field name="name_disp" attrs="{'invisible': [('first_name', '=', False),('last_name', '=', False)]}"/>
+				</field> 
+				<label for="street" position="before">
+					<field name="first_name"/>
+					<field name="middle_name"/>
+					<field name="last_name"/>
+					<field name="initials"/>
+				</label>
+		 	    <field name="name" position="attributes">
+					<attribute name="attrs">{'invisible': ['|',('first_name', '!=', False),('last_name', '!=', False)], 'required': True}</attribute>
+	    		</field> 
+            </field>
+        </record>
+
+        <record id="membership_first_last_name_tree" model="ir.ui.view">
+            <field name='name'>membership.first.last.name.tree</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.membership_members_tree"/>
+            <field name='arch' type='xml'>
+				<field name="name" position="after">
+					<field name="last_name"/>
+	    		</field> 
+            </field>
+        </record>
+
+        <record id="membership_first_last_name_search" model="ir.ui.view">
+            <field name='name'>membership.first.last.name.search</field>
+            <field name='model'>res.partner</field>
+            <field name="inherit_id" ref="membership.view_res_partner_member_filter"/>
+            <field name='arch' type='xml'>
+				<field name="membership_start" position="before">
+					<field name="name"/>
+					<field name="last_name"/>
+					<field name="first_name"/>
+	    		</field> 
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

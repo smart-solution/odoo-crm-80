@@ -1,0 +1,1 @@
+import partner_personal_data

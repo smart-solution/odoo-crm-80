@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+<data noupdate="1"> <!-- noupdate = 1 for the 'active' field -->
+<record id="membership_unlimited_invoices_cron" model="ir.cron">
+    <field name="name">Aanmaken lidmaatschap facturen</field>
+    <field name="active" eval="True"/>
+    <field name="user_id" ref="base.user_root"/>
+    <field name="interval_number">1</field>
+    <field name="interval_type">months</field>
+    <field name="numbercall">-1</field> <!-- don't limit the number of calls -->
+    <field name="doall" eval="False"/>
+    <field name="model" eval="'membership.partner.account'"/>
+    <field name="function" eval="'_create_membership_invoices'" />
+    <field name="args" eval="'()'"/>
+</record>
+
+</data>
+</openerp>

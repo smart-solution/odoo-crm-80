@@ -1,0 +1,1 @@
+import partner_contact_data

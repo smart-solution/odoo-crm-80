@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record id="view_radius_action_tree" model="ir.ui.view">
+			<field name='name'>view.radius.action.tree</field>
+			<field name='model'>res.radius.action</field>
+			<field name='arch' type='xml'>
+				<tree string="Werkingsvelden">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+		<record id="view_radius_action_form" model="ir.ui.view">
+			<field name='name'>view.radius.action.form</field>
+			<field name='model'>res.radius.action</field>
+			<field name='arch' type='xml'>
+				<form string="Werkingsveld">
+					<group colspan="2" col="2">
+						<field name="name"/>
+					</group>
+				</form>
+			</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_radius_action_form">
+			<field name="name">Radius of Action</field>
+			<field name="res_model">res.radius.action</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+        </record>
+
+		<menuitem name="Werkingsvelden" parent="base.menu_organisation_configuration" id="base.organisation_radius_action" sequence="15" action="action_radius_action_form"/>
+
+		<record model="ir.ui.view" id="organisation_partner_form">
+			<field name="name">organisation.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="orgstruct.organisation_partner_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="display_address" position="after">
+					<field name="display_radius_action" invisible="True" modifiers="{'invisible': true}"/>
+				</field> 
+				<page string="Functies" position="after">
+					<page string="Werkingsvelden" attrs="{'invisible': [('display_radius_action','=',False)]}">   
+						<group colspan="1" col="2">
+							<field name="radius_action_ids"/>
+						</group>
+					</page>	
+				</page>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_organisation_type_form">
+			<field name="name">view.organisation.type.form</field>
+			<field name="model">res.organisation.type</field>
+			<field name="inherit_id" ref="orgstruct.view_organisation_type_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="display_address" position="after">
+					<field name="display_radius_action"/>
+				</field> 
+			</field>
+		</record>
+
+    </data>
+</openerp>
